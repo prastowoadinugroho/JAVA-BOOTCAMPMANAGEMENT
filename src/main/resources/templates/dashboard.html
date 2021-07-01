@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head th:replace="layout/head-layout :: head_layout">
+        <link th:href="@{~/swiper.css}" rel="stylesheet"> 
+    </head>
+
+<body id="page-top">
+    <div class="spinner-wrapper">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    <div id="wrapper">
+        <ul th:replace="layout/sidebar-layout :: sidebar_layout"></ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <ul th:replace="layout/topbar_navbar-layout :: topbar_navbar_layout"></ul>
+                </nav>
+
+                <div class="container-fluid">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-dark shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Developer <br/>(Available)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" th:id='available'></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-user-friends fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-dark shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Developer <br/>(Not Available)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" th:id='unavailable'></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-user-times fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-dark shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Developer <br/>(On Site)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" th:id='onsite'></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="far fa-building fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-dark shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                Request <br/>(All)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" th:id='request'></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-mail-bulk fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                        
+                    <div class="row">
+                        <div class="col-xl-5 col-lg-6" >
+                            <div class="card shadow mb-4">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Developer Skill</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4 pb-2">
+                                        <canvas id="myPieSkill"></canvas>
+                                    </div>
+                                    <div class="mt-4 text-center small">
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-primary"></i> Java
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-success"></i> Pyhton
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-info"></i> PHP
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-danger"></i> React
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-secondary"></i> .Net
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-7 col-lg-6">
+                            <div class="card shadow mb-4">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Request Status</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4 pb-2">
+                                        <canvas id="myPieRequest"></canvas>
+                                    </div>
+                                    <div class="mt-4 text-center small">
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-info"></i> Need Action
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-warning"></i> Undone
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-success"></i> Done
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-danger"></i> Rejected
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6" >
+                            <div class="card shadow mb-4">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Reject Status By Skill</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4 pb-2">
+                                        <canvas id="myRejectSkill"></canvas>
+                                    </div>
+                                    <div class="mt-4 text-center small">
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-primary"></i> Java
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-success"></i> Pyhton
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-info"></i> PHP
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-danger"></i> React
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-secondary"></i> .Net
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <footer th:replace="layout/footer-layout :: footer_layout"></footer>
+        </div>
+       
+    </div>
+
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Select "Logout" below if you are ready to end your current session.</p>
+                    <hr>
+                    <form th:action="@{../logout}" method="POST">
+                        <button type="submit" class="btn btn-primary mt-1 mb-1 float-right">Logout</button>
+                        <button class="btn btn-danger mt-1 mb-1 mr-2 float-right" type="button" data-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">My Profile</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <img class="img-profile rounded-circle"
+                            th:src="@{~/undraw_profile.svg}" width="124rem">
+                        <hr style="width: 50%">
+                    </div>
+                    <div class="text-center mt-3">
+                        <h6 class="medium font-weight-bold">Name</h6>
+                        <h6 class="medium font-weight-medium" th:text="${user.username}"></h6>   
+                        <h6 class="medium font-weight-bold">Address</h6>
+                        <h6 class="medium font-weight-medium" th:text="${user.employee.address}"></h6>   
+                        <h6 class="medium font-weight-bold">Email</h6>
+                        <h6 class="medium font-weight-medium" th:text="${user.employee.email}"></h6>   
+                        <h6 class="medium font-weight-bold">Job</h6>
+                        <h6 class="medium font-weight-medium" th:text="${user.employee.job.name}"></h6>   
+                    </div>
+                    <hr>
+                    <button class="btn btn-danger mt-1 mb-1 mr-2 float-right" type="button" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div> 
+    
+    <script th:src="@{~/sidebarToggle.js}"></script>
+    <script th:src="@{~/swiper.min.js}"></script>
+    <script th:src="@{~/chart.js}"></script>
+    <script th:src="@{~/chart-pie-demo.js}"></script>
+    <script>
+	$(window).on('load', function() {
+		var preloaderFadeOutTime = 500;
+		function hidePreloader() {
+			var preloader = $('.spinner-wrapper');
+			setTimeout(function() {
+				preloader.fadeOut(preloaderFadeOutTime);
+			}, 500);
+		}
+		hidePreloader();
+	});
+    </script>
+</body>
+
+</html>

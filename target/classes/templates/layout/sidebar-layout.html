@@ -1,0 +1,144 @@
+<ul th:fragment="sidebar_layout" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="${dashboardPage}">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-tasks"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Bootcamp Management</div>
+    </a>
+
+    <hr class="sidebar-divider my-0">
+
+    <li th:class="${dashboardItem}" sec:authorize="hasRole('RM')">
+        <a class="nav-link" th:href="${dashboardPage}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+    
+    <li th:class="${dashboardAdminItem}" sec:authorize="hasRole('ADMIN')">
+        <a class="nav-link" th:href="${dashboardAdminPage}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+    
+    <li th:class="${dashboardUserItem}" sec:authorize="hasRole('User')">
+        <a class="nav-link" th:href="${dashboardUserPage}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-heading" sec:authorize="hasRole('ADMIN')">
+        Manage - Admin Page
+    </div>
+
+    <li th:class="${employeeItem}" sec:authorize="hasRole('ADMIN')">
+        <a class="nav-link" th:href="${employeePage}">
+            <i class="fas fa-fw fa-id-card-alt"></i>
+            <span>Employee</span></a>
+    </li>
+
+    <li th:class="${classItem}" sec:authorize="hasRole('ADMIN')">
+        <a class="nav-link" th:href="${classPage}">
+            <i class="fas fa-fw fa-laptop-house"></i>
+            <span>Class</span></a>
+    </li>
+
+    <li th:class="${jobItem}" sec:authorize="hasRole('ADMIN')">
+        <a class="nav-link" th:href="${jobPage}">
+            <i class="far fa-fw fa-building"></i>
+            <span>Job</span></a>
+    </li>
+
+    <li th:class="${siteItem}" sec:authorize="hasRole('ADMIN')">
+        <a class="nav-link" th:href="${sitePage}">
+            <i class="fas fa-fw fa-location-arrow"></i>
+            <span>Site</span></a>
+    </li>
+
+    <li th:class="${skillItem}" sec:authorize="hasRole('ADMIN')">
+        <a class="nav-link" th:href="${skillPage}">
+            <i class="fas fa-fw fa-atom"></i>
+            <span>Skill</span></a>
+    </li>
+    
+    <li th:class="${userItem}" sec:authorize="hasRole('ADMIN')">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Manage User</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Manage:</h6>
+                <a class="collapse-item" th:href="${userPage}">User</a>
+                <a class="collapse-item" th:href="${rolePage}">Role</a>
+                <a class="collapse-item" th:href="${userRolePage}">User Role</a>
+            </div>
+        </div>
+    </li>
+            
+    <li th:class="${trainerItem}" sec:authorize="hasRole('ADMIN')">
+        <a class="nav-link" th:href="${trainerPage}">
+            <i class="fas fa-fw fa-chalkboard-teacher"></i>
+            <span>Trainer</span></a>
+    </li>
+
+    <li th:class="${customerItem}" sec:authorize="hasRole('ADMIN')">
+        <a class="nav-link" th:href="${customerPage}">
+            <i class="fas fa-fw fa-user-tie"></i>
+            <span>Costumer</span></a>
+    </li>
+    
+    <div class="sidebar-heading" sec:authorize="hasRole('RM')">
+        Manage - RM Page
+    </div>
+
+    <li th:class="${viewRequestItem}" sec:authorize="hasRole('RM')">
+        <a class="nav-link" th:href="${viewRequestPage}">
+            <i class="fas fa-fw fa-inbox"></i>
+            <span>View Request</span></a>
+    </li>
+    
+    <li th:class="${requestAcc}" sec:authorize="hasRole('RM')">
+        <a class="nav-link" th:href="${requestAccPage}">
+            <i class="fas fa-fw fa-user-check"></i>
+            <span>Request Accepted</span></a>
+    </li>
+
+    <li th:class="${interviewItem}" sec:authorize="hasRole('RM')">
+        <a class="nav-link" th:href="${interviewPage}">
+            <i class="fas fa-fw fa-spinner"></i>
+            <span>Interview</span></a>
+    </li>
+    
+    <li th:class="${employeeOnSiteItem}" sec:authorize="hasRole('RM')">
+        <a class="nav-link" th:href="${employeeOnSitePage}">
+            <i class="fas fa-fw fa-city"></i>
+            <span>Employee On Site</span></a>
+    </li>
+    
+    <div class="sidebar-heading" sec:authorize="hasRole('USER')">
+        Manage - Developer Page
+    </div>
+    
+    <li th:class="${informationItem}" sec:authorize="hasRole('USER')">
+        <a class="nav-link" th:href="${informationPage}">
+            <i class="far fa-fw fa-newspaper"></i>
+            <span>Information</span></a>
+    </li>
+
+    <li th:class="${userSkillItem}" sec:authorize="hasRole('USER')">
+        <a class="nav-link" th:href="${userSkillPage}">
+            <i class="fas fa-fw fa-laptop-code"></i>
+            <span>Skill</span></a>
+    </li>
+
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+    
+</ul>

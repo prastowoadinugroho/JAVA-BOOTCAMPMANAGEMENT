@@ -1,0 +1,7 @@
+#api:
+#    url: https://jsonplaceholder.typicode.com/
+spring:
+    mvc:
+        hiddenmethod:
+            filter:
+                enabled: true

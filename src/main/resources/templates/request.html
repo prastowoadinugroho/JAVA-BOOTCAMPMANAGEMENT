@@ -1,0 +1,345 @@
+<html>
+    <head th:replace="layout/head-layout :: head_layout">
+        <link th:href="@{~/swiper.css}" rel="stylesheet"> 
+    </head>
+    <body id="page-top">
+        <div class="spinner-wrapper">
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+        </div>
+        <div id="wrapper">
+            <ul th:replace="layout/sidebar-layout :: sidebar_layout"></ul>
+            <div id="content-wrapper" class="d-flex flex-column">
+                <div id="content">
+                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <ul th:replace="layout/topbar_navbar-layout :: topbar_navbar_layout"></ul>
+                    </nav>
+
+                    <div class="container-fluid">
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 class="h3 mb-0 text-gray-800">Request Job From Site</h1>
+                        </div>
+                        
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <div class="float-right">
+                                   <a th:href="@{request/done}" class="m-0 btn btn-dark btn-sm mr-2">View Request Done</a>
+                                   <a th:href="@{request/reject-list}" class="m-0 btn btn-dark btn-sm">View Request Rejected</a>
+                                </div>
+                            
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <a href="#" th:id="btn-add" class="btn btn-success btn-icon-split mb-4" data-toggle="modal" data-target="#requestModal">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-plus-square mt-1"></i>
+                                        </span>
+                                        <span class="text">Add Request</span>
+                                    </a>
+                                    <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Site Name</th>
+                                                <th>Interview Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer th:replace="layout/footer-layout :: footer_layout"></footer>
+            </div>
+        </div>
+        
+        <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Select "Logout" below if you are ready to end your current session.</p>
+                    <hr>
+                    <form th:action="@{../../logout}" method="POST">
+                        <button type="submit" class="btn btn-primary mt-1 mb-1 float-right">Logout</button>
+                        <button class="btn btn-danger mt-1 mb-1 mr-2 float-right" type="button" data-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">My Profile</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <img class="img-profile rounded-circle"
+                            th:src="@{~/undraw_profile.svg}" width="124rem">
+                        <hr style="width: 50%">
+                    </div>
+                    <div class="text-center mt-3">
+                        <h6 class="medium font-weight-bold">Name</h6>
+                        <h6 class="medium font-weight-medium" th:text="${user.username}"></h6>   
+                        <h6 class="medium font-weight-bold">Address</h6>
+                        <h6 class="medium font-weight-medium" th:text="${user.employee.address}"></h6>   
+                        <h6 class="medium font-weight-bold">Email</h6>
+                        <h6 class="medium font-weight-medium" th:text="${user.employee.email}"></h6>   
+                        <h6 class="medium font-weight-bold">Job</h6>
+                        <h6 class="medium font-weight-medium" th:text="${user.employee.job.name}"></h6>   
+                    </div>
+                    <hr>
+                    <button class="btn btn-danger mt-1 mb-1 mr-2 float-right" type="button" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>     
+     
+    <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Request</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="users" method="post" action='#' th:id="form">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Date</label>
+                                <input type="date" class="form-control form-control-sm" id="interviewDate" name="interviewDate">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Candidate needed</label>
+                                <input type="number" class="form-control form-control-sm" name="candidateNeeded" th:id="candidateNeeded">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Customer</label>
+                            <select th:name="customer" class="js-example-basic-single" required th:id="customer" style="width: 100%;">
+                                <option value="">-- Choose --</option>
+                                <option th:each="customer : ${customers}" th:value=${customer.id} th:text="${customer.name} + ' - ' + ${customer.site.name}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Skill</label>
+                            <select th:name="skill" class="js-example-basic-single" required th:id="skill" style="width: 100%;">
+                                <option value="">-- Choose --</option>
+                                <option th:each="skill : ${skills}" th:value=${skill.id} th:text="${skill.name}"></option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary mt-4 float-right" type="submit" data-dismiss="modal" id="btn-save">Submit</button>
+                        <button class="btn btn-secondary mt-4 float-right mr-2" type="button" data-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <div class="modal fade" id="editRequestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Request</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="users" method="post" action='#' th:id="form-editRequest">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Date</label>
+                                <input type="number" class="form-control form-control-sm" id="idReqEdit" name="idReqEdit" style="display: none">
+                                <input type="date" class="form-control form-control-sm" id="interviewDateReqEdit" name="interviewDateReqEdit">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Candidate needed</label>
+                                <input type="number" class="form-control form-control-sm" name="candidateNeededReqEdit" th:id="candidateNeededReqEdit">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Customer</label>
+                            <select th:name="customerReqEdit" class="js-example-basic-single" required th:id="customerReqEdit" style="width: 100%;">
+                                <option value="">-- Choose --</option>
+                                <option th:each="customer : ${customers}" th:value=${customer.id} th:text="${customer.name} + ' - ' + ${customer.site.name}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Skill</label>
+                            <select th:name="skillReqEdit" class="js-example-basic-single" required th:id="skillReqEdit" style="width: 100%;">
+                                <option value="">-- Choose --</option>
+                                <option th:each="skill : ${skills}" th:value=${skill.id} th:text="${skill.name}"></option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary mt-4 float-right" type="submit" data-dismiss="modal" id="btn-edit-request">Submit</button>
+                        <button class="btn btn-secondary mt-4 float-right mr-2" type="button" data-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reject Note</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="users" method="post" th:id="forms">
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Reject Note</label>
+                            <input type="text" class="form-control form-control-sm" name="reqId" th:id="reqId" style="display: none">
+                            <textarea class="form-control" th:id="reject" name="reject" rows="3"></textarea>
+                        </div>
+                        <button class="btn btn-primary mt-4 float-right" type="submit" data-dismiss="modal" id="btn-saves">Submit</button>
+                        <button class="btn btn-secondary mt-4 float-right mr-2" type="button" data-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <div class="modal fade" id="editNoteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Reject Note</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="users" method="post" th:id="form-edit">
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Reject Note</label>
+                            <input type="number" class="form-control form-control-sm" name="reqId" th:id="reqId" style="display: none">
+                            <textarea class="form-control" th:id="reject" name="reject" rows="3"></textarea>
+                        </div>
+                        <button class="btn btn-primary mt-4 float-right" type="submit" data-dismiss="modal" id="btn-edit">Submit</button>
+                        <button class="btn btn-secondary mt-4 float-right mr-2" type="button" data-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>    
+        
+    <div class="modal fade" id="noteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reject Note</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                     <div class="text-center">
+                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 15rem;"
+                            th:src="@{~/undraw_Process_re_gws7.svg}" alt="">
+                    </div>
+
+                    <div class="text-center mt-2">
+                        <h6 class="medium font-weight-400 mt-3 font-italic" th:id="note"></h6>
+                        <h6 class="medium font-weight-100 mt-5 font-italic" th:id="date"></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <div class="modal fade" id="detailRequest" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detail Request</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 15rem;"
+                                th:src="@{~/undraw_Accept_request_re_d81h.svg}" alt="">
+                        </div>
+
+                        <div class="text-center mt-2">
+                            <h6 class="medium font-weight-bold">Address</h6>
+                            <h6 class="medium font-weight-medium" th:id="address" name="address"></h6>
+                            <h6 class="medium font-weight-bold">Interview Date</h6>
+                            <h6 class="medium font-weight-medium" th:id="reqdate" name="reqdate"></h6>
+                            <h6 class="medium font-weight-bold">Candidate Needed</h6>
+                            <h6 class="medium font-weight-medium" th:id="reqcandidate" name="reqcandidate"></h6>
+                            <h6 class="medium font-weight-bold">Customer</h6>
+                            <h6 class="medium font-weight-medium" th:id="reqcustomer" name="reqcustomer"></h6>                
+                            <h6 class="medium font-weight-bold">Skill Needed</h6>
+                            <h6 class="medium font-weight-medium" th:id="reqskill" name="reqskill"></h6>                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+        
+    <script th:src="@{~/dataTables.js}"></script>
+    <script th:src="@{~/sidebarToggle.js}"></script>
+    <script th:src="@{~/swiper.min.js}"></script>
+    <script th:src="@{~/ajax/request.js}"></script>
+    <script>
+        /* Preloader */
+	$(window).on('load', function() {
+		var preloaderFadeOutTime = 500;
+		function hidePreloader() {
+			var preloader = $('.spinner-wrapper');
+			setTimeout(function() {
+				preloader.fadeOut(preloaderFadeOutTime);
+			}, 500);
+		}
+		hidePreloader();
+	});
+    </script>
+    </body>
+</html>
